@@ -6,7 +6,7 @@ import Vuex from 'vuex';
 import index from './store';
 import axios from './require';
 import Scroll from './components/scrollsBar';
-import './style/common.less';
+// import './style/common.less';
 Vue.config.productionTip = false;
 const router = new VueRouter({
     routes

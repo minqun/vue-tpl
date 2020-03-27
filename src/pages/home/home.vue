@@ -3,15 +3,13 @@
         <ScrollsBar>
             <div style="height: 800px;">
                 <p>home</p>
-                <div id="box">333</div>
+                <div id="box" style="height: 600px">333</div>
                 <p>home</p>
                 <p>home</p>
+                <div id="box" style="height: 600px">333</div>
                 <p>home</p>
                 <p>home</p>
-                <p>home</p>
-                <p>home</p>
-                <p>home</p>
-                <p>home</p>
+                <div id="box" style="height: 600px">333</div>
             </div>
         </ScrollsBar>
     </div>

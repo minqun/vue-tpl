@@ -28,12 +28,12 @@
 
 .el-scrollbar__thumb {
     position: relative;
+    background-color: rgba(144, 147, 153, 0.3);
     display: block;
     width: 0;
     height: 0;
     cursor: pointer;
     border-radius: inherit;
-    background-color: rgba(144, 147, 153, 0.3);
     transition: background-color 0.3s;
 }
 .el-scrollbar__wrap {
@@ -42,4 +42,10 @@
 }
 .el-scrollbar__thumb:hover {
     background-color: rgba(144, 147, 153, 0.5);
+}
+.el-scrollbar:active > .el-scrollbar__bar,
+.el-scrollbar:focus > .el-scrollbar__bar,
+.el-scrollbar:hover > .el-scrollbar__bar {
+    opacity: 1;
+    transition: opacity 0.34s ease-out;
 }

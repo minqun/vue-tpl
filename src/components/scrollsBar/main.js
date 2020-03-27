@@ -1,7 +1,23 @@
 import { toObject, on, off, renderThumbStyle, BAR_MAP, addResizeListener, removeResizeListener, BarWidth } from './utils';
+import Bar from './bar';
+import './bar.less';
 export default {
     name: 'ScrollsBar',
-    mounted() {},
+    mounted() {
+        if (this.native) return;
+        this.$nextTick(this.update);
+        !this.noresize && addResizeListener(this.$refs.resize, this.update);
+    },
+    beforeDestroy() {
+        if (this.native) return;
+        !this.noresize && removeResizeListener(this.$refs.resize, this.update);
+    },
+    computed: {
+        wrap() {
+            return this.$refs.wrap;
+        }
+    },
+    components: { Bar },
     props: {
         native: Boolean,
         wrapStyle: {},
@@ -23,7 +39,20 @@ export default {
         };
     },
     methods: {
-        handleScroll() {}
+        handleScroll() {
+            const wrap = this.wrap;
+            this.moveY = (wrap.scrollTop * 100) / wrap.clientHeight;
+            this.moveX = (wrap.scrollLeft * 100) / wrap.clientWidth;
+        },
+        update() {
+            let heightPentage, widthPentage;
+            const wrap = this.wrap;
+            if (!wrap) return;
+            heightPentage = (wrap.clientHeight * 100) / wrap.scrollHeight;
+            widthPentage = (wrap.clientWdith * 100) / wrap.scrollWdith;
+            this.sizeHeight = heightPentage < 100 ? heightPentage + '%' : '';
+            this.sizeWidth = widthPentage < 100 ? widthPentage + '%' : '';
+        }
     },
     render(h) {
         let gutter = BarWidth();
@@ -60,10 +89,14 @@ export default {
         );
         let nodes;
         if (!this.native) {
-            nodes = [wrap, <Bar move={this.moveX} size={this.sizeWidth}></Bar>, <Bar move={this.moveX} size={this.sizeWidth}></Bar>];
+            nodes = [wrap, <Bar move={this.moveX} size={this.sizeWidth}></Bar>, <Bar vertical move={this.moveX} size={this.sizeWidth}></Bar>];
         } else {
-            nodes = [<div ref='wrap' class={[this.wrapClass, 'el-scrollBar__wrap']}></div>];
+            nodes = [
+                <div ref='wrap' class={[this.wrapClass, 'el-scrollBar__wrap']}>
+                    {[view]}
+                </div>
+            ];
         }
-        return h('div', { class: 'el-scrollbar' }, this.$slots.default);
+        return h('div', { class: 'el-scrollbar' }, nodes);
     }
 };
