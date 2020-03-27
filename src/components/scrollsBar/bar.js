@@ -16,14 +16,13 @@ export default {
     },
     methods: {
         clickTrackHandler(e) {
-            console.log(e);
             // 位移
-            console.log(Math.abs(e.target.getBoundingClientRect()[this.bar.direction] - e[this.bar.client]));
             const offset = Math.abs(e.target.getBoundingClientRect()[this.bar.direction] - e[this.bar.client]);
             const thumbHalf = this.$refs.thumb[this.bar.offset] / 2;
-            console.log(thumbHalf, this.bar.offset, this.$refs.thumb, this.$el);
+            // 计算进度条比例
+            console.log(this.bar.offset, this.$el[this.bar.offset]);
             const thumbPositionPercentage = ((offset - thumbHalf) * 100) / this.$el[this.bar.offset];
-            this.wrap[this.bar.scroll] = thumbPositionPercentage * this.wrap[this.bar.scrollSzie];
+            this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize]) / 100;
         },
         clickThumbHandler(e) {
             console.log(e);
