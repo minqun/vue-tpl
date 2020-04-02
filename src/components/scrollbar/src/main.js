@@ -174,7 +174,7 @@ export default {
 
             heightPercentage = (wrap.clientHeight * 100) / wrap.scrollHeight;
             widthPercentage = (wrap.clientWidth * 100) / wrap.scrollWidth;
-
+            console.log(heightPercentage);
             this.sizeHeight = heightPercentage < 100 ? heightPercentage + '%' : '';
             this.sizeWidth = widthPercentage < 100 ? widthPercentage + '%' : '';
         }

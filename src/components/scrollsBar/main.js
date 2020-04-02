@@ -5,6 +5,7 @@ export default {
     name: 'ScrollsBar',
     mounted() {
         if (this.native) return;
+
         this.$nextTick(this.update);
         !this.noresize && addResizeListener(this.$refs.resize, this.update);
     },
@@ -47,10 +48,13 @@ export default {
         update() {
             let heightPentage, widthPentage;
             const wrap = this.wrap;
+
             if (!wrap) return;
             heightPentage = (wrap.clientHeight * 100) / wrap.scrollHeight;
             widthPentage = (wrap.clientWdith * 100) / wrap.scrollWdith;
+
             this.sizeHeight = heightPentage < 100 ? heightPentage + '%' : '';
+            console.log(this.sizeHeight, 'upt');
             this.sizeWidth = widthPentage < 100 ? widthPentage + '%' : '';
         }
     },
@@ -89,7 +93,7 @@ export default {
         );
         let nodes;
         if (!this.native) {
-            nodes = [wrap, <Bar move={this.moveX} size={this.sizeWidth}></Bar>, <Bar vertical move={this.moveX} size={this.sizeWidth}></Bar>];
+            nodes = [wrap, <Bar move={this.moveX} size={this.sizeWidth}></Bar>, <Bar vertical move={this.moveY} size={this.sizeHeight}></Bar>];
         } else {
             nodes = [
                 <div ref='wrap' class={[this.wrapClass, 'el-scrollBar__wrap']}>

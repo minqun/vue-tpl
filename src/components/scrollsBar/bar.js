@@ -20,7 +20,7 @@ export default {
             const offset = Math.abs(e.target.getBoundingClientRect()[this.bar.direction] - e[this.bar.client]);
             const thumbHalf = this.$refs.thumb[this.bar.offset] / 2;
             // 计算进度条比例
-            console.log(this.bar.offset, this.$el[this.bar.offset]);
+            console.log(offset, thumbHalf);
             const thumbPositionPercentage = ((offset - thumbHalf) * 100) / this.$el[this.bar.offset];
             this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize]) / 100;
         },
@@ -41,11 +41,12 @@ export default {
         },
         mouseMoveDocumentHandler(e) {
             if (this.cursorDown == false) return;
-            const prePage = this[this.bar.axis];
+            const prePage = e[this.bar.axis.toLowerCase()];
             if (!prePage) return;
             const offset = this.$el.getBoundingClientRect()[this.bar.direction] - e[this.bar.client] * -1;
-            const thumbClickPosition = this.$refs.thumb[this.bar.offet] - prePage;
+            const thumbClickPosition = this.$refs.thumb[this.bar.offset] - prePage;
             const thumbPositionPercentage = ((offset - thumbClickPosition) * 100) / this.$el[this.bar.offset];
+            this.wrap[this.bar.scroll] = (thumbPositionPercentage * this.wrap[this.bar.scrollSize]) / 100;
         },
         mouseUpDocumentHandler(e) {
             this.cursorDown = false;
